@@ -19,20 +19,34 @@ void game()
 	//存储数据 - 二维数组
 	//此处如果指定了⌈棋盘⌋的大小，即board[3][3]，那么以后想更改棋盘大小就需要改此处以及一系列的代码数据，非常麻烦，所以在此处需要新建一个头文件
 	char board[ROW][COL];
+
 	//初始化棋盘 - 初始化空格
 	InitBoard(board, ROW, COL);
+
 	//打印棋盘 - 本质是打印数组的内容
 	DisplayBoard(board, ROW, COL);
 
-
+	while (1)
+	{
+		//玩家下棋
+		PlayerMove(board, ROW, COL);
+		DisplayBoard(board, ROW, COL);
+		//电脑下棋
+		ComputerMove(board, ROW, COL);
+		DisplayBoard(board, ROW, COL);
+	}
 }
 int main()
 {
 	int input = 0;
+	//srand只需要定义一次
+	//srand需要引用stdlib头文件
+	//time需要引用time头文件
+	srand((unsigned int)time(NULL));
 	do
 	{
 		menu();
-		printf("请选择：>");
+		printf("请选择：");
 		scanf_s("%d", &input);
 		switch (input)
 		{
