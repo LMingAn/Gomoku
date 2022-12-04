@@ -86,3 +86,47 @@ void ComputerMove(char board[ROW][COL], int row, int col)
 		}
 	}
 }
+
+int Full(char board[ROW][COL], int row, int col)
+{
+	int x, y;
+	for (x = 0; x < row; x++)
+	{
+		for (y = 0; y < col; y++)
+		{
+			if (board[x][y] != ' ')
+				return 1;
+		}
+	}
+	return 0;
+}
+
+char Win(char board[ROW][COL], int row, int col)
+{
+	int x, y;
+	//行判断
+	for (x = 0; x < row; x++)
+	{
+		//当一行上的三个棋子相同且都不为空格时，游戏结束
+		if (board[x][0] == board[x][1] && board[x][1] == board[x][2] && board[x][1] != ' ')
+			return board[x][1];//返回棋子，则棋子对应方获胜
+	}
+	//列判断
+	for (y = 0; y < col; y++)
+	{
+		//当一列上的三个棋子相同且都不为空格时，游戏结束
+		if (board[0][y] == board[1][y] && board[1][y] == board[2][y] && board[1][y] != ' ')
+			return board[1][y];
+	}
+	//主对角线判断
+	if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ' ')
+		return board[1][1];
+	//副对角线判断
+	int full = Full(board, row, col);
+	if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ' ')
+		return board[1][1];
+	else if (full == 1)//Full函数用于判断棋盘是否已满
+		return 'C';
+	else
+		return 'N';
+}

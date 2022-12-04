@@ -23,3 +23,6 @@ void PlayerMove(char board[ROW][COL], int row, int col);
 
 //电脑下棋的函数
 void ComputerMove(char board[ROW][COL], int row, int col);
+
+//判断游戏状况的函数
+char Win(char board[ROW][COL], int row, int col);

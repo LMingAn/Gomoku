@@ -26,15 +26,39 @@ void game()
 	//打印棋盘 - 本质是打印数组的内容
 	DisplayBoard(board, ROW, COL);
 
+	char check;//避免在while循环中重复定义
+	//check共有四种情况用于判断游戏状况
+	//check = * -- 玩家获胜
+	//check = # -- 电脑获胜
+	//以上两种为了避免在Win函数中多定义一个变量用于返回游戏状况，直接返回棋子本身
+	//check = N -- 平局
+	//check = C -- 游戏继续
+
 	while (1)
 	{
 		//玩家下棋
 		PlayerMove(board, ROW, COL);
 		DisplayBoard(board, ROW, COL);
+		//判断玩家是否获胜
+		check = Win(board, ROW, COL);//进行游戏状况判断
+		if (check != 'C')//当棋盘上有特殊情况不能继续游戏时，跳出循环（游戏）开始进行结果判断
+			break;
 		//电脑下棋
 		ComputerMove(board, ROW, COL);
 		DisplayBoard(board, ROW, COL);
+		check = Win(board, ROW, COL);//判断游戏状况
+		if (check != 'C')//同上
+			break;
 	}
+	//开始进行游戏结果判断
+	if (check == '*')
+		printf("玩家获胜\n");
+	else if (check == '#')
+		printf("电脑获胜\n");
+	else if (check == 'N')
+		printf("平局\n");
+	else
+		printf("无子可放，平局\n");
 }
 int main()
 {
